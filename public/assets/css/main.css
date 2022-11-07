@@ -12,6 +12,14 @@ footer .container {
     padding-bottom: 20px;
 }
 
+.cover-loader {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background: red;
+    z-index: 1000;
+}
 
 .card-body a{
     text-decoration: none;
@@ -70,7 +78,8 @@ footer .container {
     /* border-radius: 5px; */
 }
 
-#auth-main > .container form button.btn {
+#auth-main > .container form button.btn,
+.custom-btn {
     background-color: #ff6600;
     color: #fff;
 }

@@ -1,10 +1,10 @@
 @extends('layouts.main')
 @section('content')
     <div class="row">
-        @for ($i = 0; $i < 5; $i++)
+        @foreach ($items as $index => $item)
             <div class="col-lg-6 mt-3">
-                @include('partials.cart', ['index' => ($i + 1)])
+                @include('partials.cart', ['item' => $item, 'index' => ($index+1)])
             </div>
-        @endfor
+        @endforeach
     </div>
 @endsection

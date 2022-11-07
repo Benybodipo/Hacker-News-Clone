@@ -11,12 +11,14 @@
 </head>
 <body>
     @include('partials.header')
-    <main>
+    <div class="cover-loader"></div>
+    <main style="position: relative">
         <div class="container" id="main-container">
             @yield('content')
         </div>
     </main>
     @include('partials.footer')
+    <script src="{{asset('/assets/js/jquery-3.6.1.js')}}"></script>
     <script src="{{asset('/assets/bootstrap/js/bootstrap.js')}}"></script>
     <script src="{{asset('/assets/js/main.js')}}"></script>
 </body>

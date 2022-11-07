@@ -4,22 +4,22 @@
             <a href="">
                 <span>{{$index}}</span>
                 <i class="fa-solid fa-caret-up"></i>
-                Special title treatment for whatever....
+                {{$item->title}}
             </a>
         </h5>
         <p class="card-text">
-            <a href="">
+            <a href="{{$item->url}}">
                 <i class="fa-solid fa-earth-americas"></i> 
-                www.somewhebsite.com
+                {{$item->url}}
             </a>
         </p> 
     </div>
     <div class="card-footer text-muted">
         <small>
-            <span>563 points by</span>
+            <span>{{$item->score}} points by</span>
             <a href="">
                 <i class="fa-solid fa-user"></i>
-                Someuser
+                {{$item->by}}
             </a>
         </small>
         <small>
@@ -29,7 +29,7 @@
         </small>
         <small>
             <a href="">
-                <i class="fa-regular fa-calendar"></i> 3 Hours ago
+                <i class="fa-regular fa-calendar"></i> {{\Carbon\Carbon::parse($item->time)->diffForHumans()}}
             </a>
         </small>
         <small>
@@ -38,8 +38,8 @@
             </a>
         </small>
         <small>
-            <a href="">
-                <i class="fa-solid fa-comment-dots"></i> 36 Comments
+            <a href="{{route('comments', [$item->id])}}">
+                <i class="fa-solid fa-comment-dots"></i> {{(property_exists($item, 'kids')) ? count($item->kids) : 0}} Comments
             </a>
         </small>
     </div>

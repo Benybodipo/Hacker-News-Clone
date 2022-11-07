@@ -15,7 +15,8 @@ use App\Http\Controllers\NewsController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
+Route::get('/', [NewsController::class, 'index'])->name('home');
+Route::get('/comments/{id}', [NewsController::class, 'comments'])->name('comments');
 Route::get('/newcomments', [NewsController::class, 'comments'])->name('newcomments');
 Route::get('/signin', [AuthController::class, 'getSignin'])->name('get.signin');
 Route::get('/signup', [AuthController::class, 'getSignup'])->name('get.signup');
