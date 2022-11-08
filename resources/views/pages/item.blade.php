@@ -10,7 +10,7 @@
                 <p class="heading">
                     <small>
                         {{$item->score}} points by
-                        <a href="">
+                        <a href="{{route('user', [$item->by])}}">
                             <i class="fa-solid fa-user"></i>
                             {{$item->by}}
                         </a>

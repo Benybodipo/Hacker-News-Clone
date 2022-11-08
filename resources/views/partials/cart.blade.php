@@ -17,7 +17,7 @@
     <div class="card-footer text-muted">
         <small>
             <span>{{$item->score}} points by</span>
-            <a href="">
+            <a href="{{route('user', $item->by)}}">
                 <i class="fa-solid fa-user"></i>
                 {{$item->by}}
             </a>
@@ -39,7 +39,8 @@
         </small>
         <small>
             <a href="{{route('comments', [$item->original_id])}}">
-                <i class="fa-solid fa-comment-dots"></i> {{(property_exists($item, 'kids')) ? count($item->kids) : 0}} Comments
+                <i class="fa-solid fa-comment-dots"></i> 
+                {{count($item->comments)}} Comments
             </a>
         </small>
     </div>

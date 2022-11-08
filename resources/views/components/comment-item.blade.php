@@ -3,7 +3,7 @@
 <div class="comment">
     <p class="heading">
         <small>
-            <a href="">
+            <a href="{{route('user', $comment['by'])}}">
                 <i class="fa-solid fa-user"></i>
                 {{$comment['by']}}
             </a>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('by')->nullable();
             $table->text('text')->nullable();
             $table->unsignedBigInteger('type');
+            $table->unsignedBigInteger('parent')->nullable();
             $table->longText('kids')->nullable();
             $table->integer('score')->nullable();
             $table->json('parts')->nullable();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('time');
             $table->timestamps();
 
+            
             $table->foreign('type')
                  ->references('id')
                  ->on('types')

@@ -13,18 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('child_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('parent');
-            $table->unsignedBigInteger('child');
-            $table->timestamps();
-
+        Schema::table('items', function(Blueprint $table) {
             $table->foreign('parent')
-                 ->references('original_id')
-                 ->on('items')
-                 ->onDelete('cascade');
-
-            $table->foreign('child')
                  ->references('original_id')
                  ->on('items')
                  ->onDelete('cascade');
@@ -38,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('child_items');
+        Schema::table('items', function(Blueprint $table) {
+            $table->dropColumn('parent');
+        });
     }
 };

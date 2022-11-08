@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -23,6 +24,7 @@ class Item extends Model
         'kids',
         'score',
         'parts',
+        'parent',
         'descendants',
         'dead',
         'deleted',
@@ -34,10 +36,12 @@ class Item extends Model
         return $this->hasOne(Type::class, 'type');
     }
 
-    // public function children(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Item::class, 'child_items', 'child', 'parent');
-    // }
+    public function comments()
+    {
+        return $this->hasMany(Item::class, 'parent', 'original_id');
+    }
+    
+    
 
     public function getChildrenAttribute()
     {
