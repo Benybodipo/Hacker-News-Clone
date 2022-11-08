@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model
 {
     use HasFactory;
+    protected $appends = [
+        'children',
+    ];
 
     protected $fillable =  [
         'title',
@@ -25,13 +29,21 @@ class Item extends Model
         'time',
     ];
 
-    public function type()
+    public function itemType()
     {
         return $this->hasOne(Type::class, 'type');
     }
 
-    public function kids()
+    // public function children(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Item::class, 'child_items', 'child', 'parent');
+    // }
+
+    public function getChildrenAttribute()
     {
-        return $this->belongsToMany(Item::class, 'child_items', 'parent', 'child');
+        if (!is_null($this->kids)) {
+            $arr = json_decode($this->kids);
+            return Item::whereIn('original_id', $arr)->get();
+        }
     }
 }

@@ -29,7 +29,7 @@
         </small>
         <small>
             <a href="">
-                <i class="fa-regular fa-calendar"></i> {{\Carbon\Carbon::parse($item->time)->diffForHumans()}}
+                <i class="fa-regular fa-calendar"></i> {{\Carbon\Carbon::parse((integer)$item->time)->diffForHumans()}}
             </a>
         </small>
         <small>
@@ -38,7 +38,7 @@
             </a>
         </small>
         <small>
-            <a href="{{route('comments', [$item->id])}}">
+            <a href="{{route('comments', [$item->original_id])}}">
                 <i class="fa-solid fa-comment-dots"></i> {{(property_exists($item, 'kids')) ? count($item->kids) : 0}} Comments
             </a>
         </small>

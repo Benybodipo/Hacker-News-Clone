@@ -18,17 +18,18 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->unsignedBigInteger('original_id')->unique();
             $table->string('url')->nullable();
-            $table->string('by');
+            $table->string('by')->nullable();
             $table->text('text')->nullable();
-            $table->unsignedBigInteger('type')->nullable();
-            $table->string('kids')->nullable();
+            $table->unsignedBigInteger('type');
+            $table->longText('kids')->nullable();
             $table->integer('score')->nullable();
             $table->json('parts')->nullable();
             $table->string('descendants')->nullable();
             $table->boolean('dead')->default(false);
-            $table->boolean('deleted')->defaul(false);
-            $table->date('time');
+            $table->boolean('deleted')->default(false);
+            $table->string('time');
             $table->timestamps();
+
             $table->foreign('type')
                  ->references('id')
                  ->on('types')

@@ -2,10 +2,10 @@
 @section('content')
     <div class="row">
         <div class="col-sm-10">
-            <div class="comment">
+            <div class="comment p-0">
                 <h6>
                     <a href="{{$item->url}}"> {{$item->title}} </a>
-                    <small class="text-muted">({{ substr(explode('/',$item->url)[2], (strpos(explode('/',$item->url)[2], '.') + 1)) }})</small>
+                    {{-- <small class="text-muted">({{ substr(explode('/',$item->url)[2], (strpos(explode('/',$item->url)[2], '.') + 1)) }})</small> --}}
                 </h6>
                 <p class="heading">
                     <small>
@@ -18,7 +18,7 @@
                     <small>
                         <a href="">
                             <i class="fa-regular fa-calendar"></i> 
-                            {{\Carbon\Carbon::parse($item->time)->diffForHumans()}}
+                            {{\Carbon\Carbon::parse((integer)$item->time)->diffForHumans()}}
                         </a>
                     </small>
                     <small>
@@ -48,6 +48,11 @@
                 </p>
             </div>
         </div>
+        @if ($item->text)
+            <div class="col-sm-12">
+                {!! $item->text !!}
+            </div>
+        @endif
         <div class="col-sm-8">
             <div class="form-floating mb-3">
                 <textarea class="form-control" style="height: 150px;"></textarea>
@@ -59,32 +64,10 @@
         </div>
     </div>
     <div class="row">
-        @foreach ($item->comments as $comment)
-            <div class="comment">
-                <p class="heading">
-                    <small>
-                        <a href="">
-                            <i class="fa-solid fa-user"></i>
-                            {{$comment->by}}
-                        </a>
-                    </small>
-                    <small>
-                        <a href="">
-                            <i class="fa-regular fa-calendar"></i> 
-                            {{\Carbon\Carbon::parse($comment->time)->diffForHumans()}}
-                        </a>
-                    </small>
-                    <small>
-                        <a href="">
-                            <i class="fa-solid fa-diagram-project"></i>
-                            Parent
-                        </a>
-                    </small>
-                </p>
-                <div class="comment-text">
-                    {!! property_exists($comment, 'text') ? $comment->text : '' !!}
-                </div>
-            </div>
+        @foreach ($item->children as $comment)
+            @if((is_array($comment) || is_object($comment)) && !is_null($comment)) 
+                <x-comment-item :comment="$comment" />
+            @endif
         @endforeach
     </div>
 @endsection
