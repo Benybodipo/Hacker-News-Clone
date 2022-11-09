@@ -23,16 +23,13 @@ class NewsController extends Controller
     public function index()
     {
         $items = Item::where('type', 2)->with('comments')->paginate(10);
-        // $this->dispatch(new NewsJob());
         
         return view('pages.home')->with('items', $items);
     }
 
     public function comments($id)
     {
-        $item = Item::where('original_id', $id)->with('comments');
-        
-        
+        $item = Item::where('original_id', $id)->with('comments');      
         return view('pages.item')->with('item', (object)$item->first());
     }
 

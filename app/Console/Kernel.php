@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\NewsJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            dispatch(new NewsJob('topstories'));
+            info('Fetching top stories...');
+            dispatch(new NewsJob('newstories'));
+            info('Fetching new stories...');
+            dispatch(new NewsJob('beststories'));
+            info('Fetching best stories...');
+        })->everyFiveMinutes()
+        ->appendOutputTo(storage_path('logs/schedule.log'));;
     }
 
     /**
