@@ -23,6 +23,7 @@ class NewsJob implements ShouldQueue
         5 => 'pollopt',
     ];
     private $stories = 'topstories';
+    private $from = null;
 
     /**
      * Create a new job instance.
@@ -31,7 +32,7 @@ class NewsJob implements ShouldQueue
      */
     public function __construct($stories)
     {
-        //
+        $this->stories = $stories;
     }
 
     /**
@@ -48,11 +49,14 @@ class NewsJob implements ShouldQueue
         $counter =  0;
         for ($i=0; $i < count($ids) ; $i++) { 
             $id = $ids[$i];
+            $this->from = $id;
 
             if (!Item::where('original_id', $id)->count()) {
                 $res  = Http::get("https://hacker-news.firebaseio.com/v0/item/{$id}.json?print=pretty");
                 $item = $res->json();
                 if (!Item::where('original_id', $item['id'])->count()) {
+                    $item['category'] = $this->stories;
+                    
                     Item::insert($this->formatItem($item));
                     if (isset(($res->json())['kids'])) {
                         $this->getKids($id, $item['kids']);
@@ -76,15 +80,14 @@ class NewsJob implements ShouldQueue
             if (!Item::where('original_id', $id)->count()) {
                 $response  = Http::get("https://hacker-news.firebaseio.com/v0/item/{$id}.json?print=pretty");
                 $item = $response->json();
-
+                $item['from'] = $this->from;
                 Item::create($this->formatItem($item)); # Insert new item
                 if (isset($item['kids'])) {
-                    $this->getKids($item['id'], $item['kids']);
+                    $this->getKids($item_id, $item['kids']);
                 }
             }
         }
         $this->child_item = [];
-
     }
 
     private function formatItem($item): Array

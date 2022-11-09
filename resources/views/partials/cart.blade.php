@@ -38,9 +38,10 @@
             </a>
         </small>
         <small>
-            <a href="{{route('comments', [$item->original_id])}}">
+            <a href="{{route('news', [$item->original_id])}}">
                 <i class="fa-solid fa-comment-dots"></i> 
-                {{count($item->comments)}} Comments
+                
+                {{ (is_array(json_decode($item->kids))) ? count(json_decode($item->kids)) : 0}} Comments
             </a>
         </small>
     </div>

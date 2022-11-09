@@ -16,7 +16,10 @@ use App\Http\Controllers\NewsController;
 */
 
 Route::get('/', [NewsController::class, 'index'])->name('home');
-Route::get('/comments/{id}', [NewsController::class, 'comments'])->name('comments');
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news');
+Route::get('/newstories', [NewsController::class, 'index'])->name('newstories');
+Route::get('/comments', [NewsController::class, 'comments'])->name('comments');
+Route::get('/comments/{id}', [NewsController::class, 'comment'])->name('comment');
 Route::get('/user/{id?}', [NewsController::class, 'showUser'])->name('user');
 
 Route::get('/newcomments', [NewsController::class, 'comments'])->name('newcomments');

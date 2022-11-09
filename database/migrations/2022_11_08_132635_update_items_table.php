@@ -14,6 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('items', function(Blueprint $table) {
+            $table->foreign('from')
+                 ->references('original_id')
+                 ->on('items')
+                 ->onDelete('cascade');
             $table->foreign('parent')
                  ->references('original_id')
                  ->on('items')

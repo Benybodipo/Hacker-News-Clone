@@ -23,6 +23,11 @@
     </p>
     <div class="comment-text">
         {!! isset($comment['text']) ? $comment['text'] : '' !!}
+        <div>
+            <small>
+                <a href="{{route('get.signin')}}" style="text-decoration: underline;">Replay</a>
+            </small>
+        </div>
     </div>
 </div>
 @if (isset($comment['children']))

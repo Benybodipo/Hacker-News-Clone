@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+{{-- {{dd($item)}} --}}
     <div class="row">
         <div class="col-sm-10">
             <div class="comment p-0">
@@ -64,6 +65,7 @@
         </div>
     </div>
     <div class="row">
+        
         @foreach ($item->children as $comment)
             @if((is_array($comment) || is_object($comment)) && !is_null($comment)) 
                 <x-comment-item :comment="$comment" />

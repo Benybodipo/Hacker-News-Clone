@@ -10,9 +10,14 @@
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1">
         </div>
-        <div class="mb-3 form-check">
-          <a href=""></a>
-        </div>
+        @if (strtolower($action) == 'login')
+          <div class="pl-0 mb-3">
+            <span>
+              Don't have an naccount? <a href="{{route('get.signup')}}" style="text-decoration: underline;">Signup</a>
+            </span>
+          </div>
+            
+        @endif
         <button type="submit" class="btn ">{{$action}}</button>
     </form>
 </div>

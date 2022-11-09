@@ -35,15 +35,16 @@
     ```
     $> php artisan db:seed
     ```
-    _(The seeding might take a while since it fetches the news and the comment from the different API points)_
 
-    * **To run the schedule/cron that periodically fetches the news from the API, open  other command line from the project root directory and run:**
-    ```
-    $> php artisan schedule:work
-    ```
     * In another command line (from the root directory) run the following command to queue the API requests
     ```
     $> php artisan queue:work
+    ```
+    The first queue will have to comple first in order to have content on the database (Please wait until the 3 queues are completed then proceed to the next step bellow)
+    _(The seeding might take a while since it fetches the news and the comment from the different API points)_
+    * **To run the schedule/cron that periodically fetches the news from the API, open  other command line from the project root directory and run:**
+    ```
+    $> php artisan schedule:work
     ```
 
     NOTE: Please keep both the queue and the schedule commands running at all time in order to get updated news every 5 to 10 minutes

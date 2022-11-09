@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('by')->nullable();
             $table->text('text')->nullable();
             $table->unsignedBigInteger('type');
+            $table->unsignedBigInteger('from')->nullable();
             $table->unsignedBigInteger('parent')->nullable();
+            $table->string('category')->nullable();
             $table->longText('kids')->nullable();
             $table->integer('score')->nullable();
             $table->json('parts')->nullable();

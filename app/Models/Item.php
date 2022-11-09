@@ -13,6 +13,7 @@ class Item extends Model
     protected $appends = [
         'children',
     ];
+    protected $with = ['comments'];
 
     protected $fillable =  [
         'title',
@@ -20,6 +21,7 @@ class Item extends Model
         'url',
         'by',
         'text',
+        'category',
         'type',
         'kids',
         'score',
@@ -29,8 +31,9 @@ class Item extends Model
         'dead',
         'deleted',
         'time',
+        'from',
     ];
-
+    
     public function itemType()
     {
         return $this->hasOne(Type::class, 'type');
@@ -40,8 +43,6 @@ class Item extends Model
     {
         return $this->hasMany(Item::class, 'parent', 'original_id');
     }
-    
-    
 
     public function getChildrenAttribute()
     {
