@@ -23,9 +23,22 @@
             </a>
         </small>
         <small>
-            <a href="">
-                <i class="fa-solid fa-eye-slash"></i> Hide
-            </a>
+            @auth
+                <a href="">
+                    <form action="{{route('action', [$item->original_id, 2])}}" method="POST" 
+                        style="display: inline-block;"
+                        >
+                        @csrf
+                        <button type="submit" style="background: none; border: none; color: gray;">
+                            <i class="fa-solid fa-eye-slash"></i> Hide
+                        </button>
+                    </form>
+                </a>
+            @else
+                <a href="{{ route('get.signin')}}">
+                    <i class="fa-solid fa-eye-slash"></i> Hide
+                </a>
+            @endauth
         </small>
         <small>
             <a href="">

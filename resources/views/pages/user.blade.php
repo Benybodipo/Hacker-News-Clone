@@ -14,7 +14,7 @@
                     </tr>
                     <tr>
                         <th>Created</th>
-                        <td>{{$user->created}}</td>
+                        <td>{{\Carbon\Carbon::parse((integer)$user->created)->diffForHumans()}}</td>
                     </tr>
                     <tr>
                         <th>Karma</th>

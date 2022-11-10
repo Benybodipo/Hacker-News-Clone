@@ -48,7 +48,7 @@ class Item extends Model
     {
         if (!is_null($this->kids)) {
             $arr = json_decode($this->kids);
-            return Item::whereIn('original_id', $arr)->get();
+            return Item::whereIn('original_id', $arr)->orderBy('time', 'desc')->get();
         }
     }
 }

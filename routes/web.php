@@ -21,7 +21,16 @@ Route::get('/newstories', [NewsController::class, 'index'])->name('newstories');
 Route::get('/comments', [NewsController::class, 'comments'])->name('comments');
 Route::get('/comments/{id}', [NewsController::class, 'comment'])->name('comment');
 Route::get('/user/{id?}', [NewsController::class, 'showUser'])->name('user');
+Route::get('/submit', [NewsController::class, 'submit'])->name('get.submit');
 
 Route::get('/newcomments', [NewsController::class, 'comments'])->name('newcomments');
+# Auth
 Route::get('/signin', [AuthController::class, 'getSignin'])->name('get.signin');
 Route::get('/signup', [AuthController::class, 'getSignup'])->name('get.signup');
+
+Route::post('/action/{item_id}/{type}', [NewsController::class, 'action'])->name('action');
+Route::post('/submit', [NewsController::class, 'submit'])->name('post.submit');
+Route::post('/comments/{type}', [NewsController::class, 'commentOn'])->name('comment-on');
+Route::post('/signin', [AuthController::class, 'postSignin'])->name('post.signin');
+Route::post('/signup', [AuthController::class, 'postSignup'])->name('post.signup');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

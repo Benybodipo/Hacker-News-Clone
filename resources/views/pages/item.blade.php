@@ -18,27 +18,47 @@
                     </small>
                     <small>
                         <a href="">
-                            <i class="fa-regular fa-calendar"></i> 
+                            <i class="fa-regular fa-calendar"></i>
                             {{\Carbon\Carbon::parse((integer)$item->time)->diffForHumans()}}
                         </a>
                     </small>
                     <small>
                         <a href="">
-                            <i class="fa-solid fa-eye-slash"></i>
-                            Hide
+                            <form action="{{route('action', [$item->original_id, 2])}}" method="POST" 
+                                style="display: inline-block;"
+                                >
+                                @csrf
+                                <button type="submit" style="background: none; border: none; color: gray;">
+                                    <i class="fa-solid fa-eye-slash"></i> Hide
+                                </button>
+                            </form>
                         </a>
                     </small>
-                    
+
                     <small>
                         <a href="">
                             Past
                         </a>
                     </small>
                     <small>
-                        <a href="">
-                            <i class="fa-solid fa-heart"></i>
-                            Favourite
-                        </a>
+                        @auth
+                            <a >
+                                <form action="{{route('action', [$item->original_id, 1])}}" method="POST" 
+                                    style="display: inline-block;"
+                                    >
+                                    @csrf
+                                    <button type="submit" style="background: none; border: none; color: gray;">
+                                        <i class="fa-solid fa-heart"></i>
+                                        Favourite
+                                    </button>
+                                </form>
+                            </a>
+                        @else
+                            <a href="{{ route('get.signin')}}">
+                                <i class="fa-solid fa-heart"></i>
+                                Favourite
+                            </a>
+                        @endauth
                     </small>
                     <small>
                         <a href="">
@@ -55,21 +75,32 @@
             </div>
         @endif
         <div class="col-sm-8">
-            <div class="form-floating mb-3">
-                <textarea class="form-control" style="height: 150px;"></textarea>
-                <label for="floatingTextarea" >Comments</label>
-            </div>
-            <button class="btn custom-btn">
-                Add comment
-            </button>
+            <form action="{{route('comment-on', [2])}}" method="post">
+                @csrf
+                <div class="form-floating mb-3">
+                    <textarea name="text" class="form-control" style="height: 100px;"></textarea>
+                    @error('text') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+                @auth
+                    <input type="hidden" name="parent" value="{{$item->original_id}}">
+                    <input type="hidden" name="from" value="{{$item->original_id}}">
+                    <input type="hidden" name="by" value="{{auth()->user()->username}}">
+                    <button class="btn btn-sm custom-btn" type="submit">
+                        Add comment
+                    </button>
+                @else
+                    <a href="{{route('get.signin')}}" class="btn btn-sm custom-btn">Add comment</a>
+                @endauth
+            </form>
         </div>
     </div>
     <div class="row">
-        
-        @foreach ($item->children as $comment)
-            @if((is_array($comment) || is_object($comment)) && !is_null($comment)) 
-                <x-comment-item :comment="$comment" />
-            @endif
-        @endforeach
+        @if ($item->children)
+            @foreach ($item->children as $comment)
+                @if((is_array($comment) || is_object($comment)) && !is_null($comment))
+                    <x-comment-item :comment="$comment" />
+                @endif
+            @endforeach
+        @endif
     </div>
 @endsection

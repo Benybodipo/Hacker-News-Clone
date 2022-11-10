@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->unsignedBigInteger('original_id')->unique();
+            $table->unsignedBigInteger('original_id')->unique()->nullable();
             $table->string('url')->nullable();
             $table->string('by')->nullable();
             $table->text('text')->nullable();

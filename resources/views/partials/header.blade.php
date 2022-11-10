@@ -26,16 +26,39 @@
                         <a class="nav-link" href="#">Jobs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Submit</a>
+                        @auth
+                            <a class="nav-link" href="{{route('get.submit')}}">Submit</a>
+                        @else
+                            <a class="nav-link" href="{{route('get.signin')}}">Submit</a>
+                        @endauth
                     </li>
                 </ul>
-                
-                <span class="nav-item">
-                    <a href="{{route('get.signin')}}">
-                        Login
-                        <i class="fa-solid fa-right-to-bracket" style="display: inline-block; margin-left: 5px;"></i>
-                    </a>
-                </span>
+                @auth
+                    <span class="nav-item" style="margin-right: 15px;">
+                        <a href="{{route('get.signin')}}">
+                            <i class="fa-solid fa-user" style="display: inline-block; margin-left: 5px;"></i>
+                            {{auth()->user()->username}}
+                        </a>
+                    </span>
+                    <span class="nav-item">
+                        <form action="{{route('logout')}}" method="POST" class="nav-link">
+                            <label for="logout-btn">
+                                Logout
+                                <i class="fa-solid fa-right-from-bracket"
+                                style="display: inline-block; margin-left: 5px;"></i>
+                            </label>
+                            <button type="submit" id="logout-btn" style="display: none;"></button>
+                            @csrf
+                        </form>
+                    </span>
+                @else
+                    <span class="nav-item">
+                        <a href="{{route('get.signin')}}">
+                            Login
+                            <i class="fa-solid fa-right-to-bracket" style="display: inline-block; margin-left: 5px; transform: rotateZ(180deg);"></i>
+                        </a>
+                    </span>
+                @endauth
             </div>
         </div>
     </nav>

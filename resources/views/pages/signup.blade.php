@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 @section('content')
     @include('partials.form', [
-        'route' => null,
+        'route' => route('post.signup'),
         'method' => 'POST',
         'action' => 'Create Account'
     ])
