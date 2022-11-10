@@ -22,18 +22,6 @@
                     Parent
                 </a>
             </small>
-
-            <small>
-                <a href="{{route('news', [$comment->from])}}">
-                    <i class="fa-solid fa-eye-slash"></i> Context
-                </a>
-            </small>
-            <small>
-                <a href="">
-                    Next
-                    <i class="fa-sharp fa-solid fa-forward"></i>
-                </a>
-            </small>
             <small>
                 On:
                 <a href="">

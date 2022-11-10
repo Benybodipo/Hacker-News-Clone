@@ -11,19 +11,7 @@
                         <a class="nav-link" aria-current="page" href="{{route('newstories')}}">New</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Past</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{route('comments')}}">Comments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ask</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Show</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Jobs</a>
                     </li>
                     <li class="nav-item">
                         @auth

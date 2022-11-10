@@ -119,7 +119,6 @@ class NewsController extends Controller
             $response = Http::get("https://hacker-news.firebaseio.com/v0/user/{$id}.json?print=pretty");
             $user = $response->object();
         }
-        // dd($user);
         return view('pages.user')->with('user', $user);
     }
 
